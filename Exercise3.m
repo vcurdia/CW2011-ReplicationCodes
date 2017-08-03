@@ -450,8 +450,8 @@ fprintf('Solving for FOC...\n')
 for jZLB=1:nZLB,ZLBj = ZLBList{jZLB};
     FOC.(ZLBj) = vpa(...
         jacobian(U,y_t)+...
-        FLM_t*jacobian(F.(ZLBj),y_t)+beta*FLM_tF*subs(jacobian(F.(ZLBj),y_tL),[z_t,z_tL],[z_tF,z_t],0)+...
-        GLM_t*jacobian(G,y_t)+beta^(-1)*GLM_tL*subs(jacobian(G,y_tF),[z_t,z_tF],[z_tL,z_t],0)...
+        FLM_t*jacobian(F.(ZLBj),y_t)+beta*FLM_tF*subs(jacobian(F.(ZLBj),y_tL),[z_t,z_tL],[z_tF,z_t])+...
+        GLM_t*jacobian(G,y_t)+beta^(-1)*GLM_tL*subs(jacobian(G,y_tF),[z_t,z_tF],[z_tL,z_t])...
         ).';
 end
 
@@ -467,15 +467,15 @@ hy_tL = y_tL;
 hy_ss = y_ss;
 for j=1:ny
     if yLogIdx(j)
-        hy_t = subs(hy_t,y_t(j),['h' char(y_t(j))],0);
-        hy_tF = subs(hy_tF,y_tF(j),['h' char(y_tF(j))],0);
-        hy_tL = subs(hy_tL,y_tL(j),['h' char(y_tL(j))],0);
+        hy_t = subs(hy_t,y_t(j),['h' char(y_t(j))]);
+        hy_tF = subs(hy_tF,y_tF(j),['h' char(y_tF(j))]);
+        hy_tL = subs(hy_tL,y_tL(j),['h' char(y_tL(j))]);
         hy_ss(j) = log(y_ss(j));
         % Plug in transformed variables into the model
-        G = subs(G, [y_t(j),y_tF(j)], exp([hy_t(j),hy_tF(j)]),0);
+        G = subs(G, [y_t(j),y_tF(j)], exp([hy_t(j),hy_tF(j)]));
         for jZLB=1:nZLB,ZLBj = ZLBList{jZLB};
-            F.(ZLBj) = subs(F.(ZLBj),[y_t(j),y_tL(j)],exp([hy_t(j),hy_tL(j)]),0);
-            FOC.(ZLBj) = subs(FOC.(ZLBj),[y_t(j),y_tL(j),y_tF(j)],exp([hy_t(j),hy_tL(j),hy_tF(j)]),0);
+            F.(ZLBj) = subs(F.(ZLBj),[y_t(j),y_tL(j)],exp([hy_t(j),hy_tL(j)]));
+            FOC.(ZLBj) = subs(FOC.(ZLBj),[y_t(j),y_tL(j),y_tF(j)],exp([hy_t(j),hy_tL(j),hy_tF(j)]));
         end
     end
 end
@@ -505,7 +505,7 @@ for j=1:size(FnD,1)
     idxSubs = find(FnDj~=0);
     FnDj(idxSubs) = subs(FnDj(idxSubs),...
         [hz_t,hz_tL,hz_tF,FLM_t,FLM_tF,GLM_t,GLM_tL],...
-        [hz_ss,hz_ss,hz_ss,FLM_ss,FLM_ss,GLM_ss,GLM_ss],0);
+        [hz_ss,hz_ss,hz_ss,FLM_ss,FLM_ss,GLM_ss,GLM_ss]);
     eval([FnD{j,1},' = eval(FnDj);'])
 end
 clear FnD
@@ -523,7 +523,7 @@ for j=1:size(FnD,1)
     idxSubs = find(FnDj~=0);
     FnDj(idxSubs) = subs(FnDj(idxSubs),...
         [hz_t,hz_tL,hz_tF,FLM_t,FLM_tF,GLM_t,GLM_tL],...
-        [hz_ss,hz_ss,hz_ss,FLM_ss,FLM_ss,GLM_ss,GLM_ss],0);
+        [hz_ss,hz_ss,hz_ss,FLM_ss,FLM_ss,GLM_ss,GLM_ss]);
     eval([FnD{j,1},' = eval(FnDj);'])
 end
 clear FnD
@@ -539,10 +539,10 @@ Lhz_tL = hz_tL;
 LGLM_t = GLM_t;
 LGLM_tL = GLM_tL;
 for j=1:nz
-    Lhz_t = subs(Lhz_t,hz_t(j),['L' char(hz_t(j))],0);
+    Lhz_t = subs(Lhz_t,hz_t(j),['L' char(hz_t(j))]);
 end
 for j=1:nG
-    LGLM_t = subs(LGLM_t,GLM_t(j),['L' char(GLM_t(j))],0);
+    LGLM_t = subs(LGLM_t,GLM_t(j),['L' char(GLM_t(j))]);
 end
 k_t = [hz_t,FLM_t,GLM_t,Lhz_t,LGLM_t];
 nk = length(k_t);
