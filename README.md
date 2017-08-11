@@ -1,6 +1,6 @@
-# CW2011-BalanceSheet
+# CW2011-ReplicationCodes
 
-[![License](https://img.shields.io/badge/license-BSD%203--clause-green.svg)](https://github.com/vcurdia/CW2011-BalanceSheet/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-BSD%203--clause-green.svg)](https://github.com/vcurdia/CW2011-ReplicationCodes/blob/master/LICENSE)
 
 These codes reproduce the results in:
 
@@ -8,10 +8,10 @@ These codes reproduce the results in:
 [The Central-Bank Balance Sheet as an Instrument of Monetary Policy](http://www.sciencedirect.com/science/article/pii/S0304393210001224)  
 *Journal of Monetary Economics*, 58(1), pp. 54-79.
 
-[Technical Appendix](https://github.com/vcurdia/CW2011-BalanceSheet/blob/master/CW2011_Appendix.pdf)
+[Technical Appendix](https://github.com/vcurdia/CW2011-ReplicationCodes/blob/master/CW2011_Appendix.pdf)
 
 These replication codes are available online at:  
-https://github.com/vcurdia/CW2011-BalanceSheet
+https://github.com/vcurdia/CW2011-ReplicationCodes
 
 # Requirements
 
